@@ -25,7 +25,49 @@ namespace GradeBook.GradeBooks
             GradeBookType type = GradeBookType.Ranked;
 
         }
+        public char GetLetterGrade(string name, char Grade)
+        {
+            if (Students.Count < 5)
+            {
+                throw new Exception();
+            }
+            int SumaGrade = 0;
+            foreach (Student student in Students)
+            {
+                switch (student.LetterGrade)
+                {
+                    case 'A':
+                        SumaGrade += 5;
+                        break;
+                    case 'B':
+                        SumaGrade += 4;
+                        break;
+                    case 'C':
+                        SumaGrade += 3;
+                        break;
+                    case 'D':
+                        SumaGrade += 2;
+                        break;
+                    case 'F':
+                        SumaGrade += 1;
+                        break;
+                }
+            }
+            if (Grade >= 4 / 5 * SumaGrade)
+                return 'A';
+            else if (Grade >= 3 / 5 * SumaGrade / Students.Count)
+                return 'B';
+            else if (Grade >= 2 / 5 * SumaGrade / Students.Count)
+                return 'C';
+            else if (Grade >= 1 / 5 * SumaGrade / Students.Count)
+                return 'D';
+            else
+                return 'F';
+        }
     }
+   
+    
+
     public class BaseGradeBook
     {
         public string Name { get; set; }

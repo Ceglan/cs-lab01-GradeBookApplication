@@ -34,27 +34,46 @@ namespace GradeBook.UserInterfaces
         public static void CreateCommand(string command)
         {
             var parts = command.Split(' ');
-            if (parts.Length != 3)
+            if (parts.Length != 4)
             {
                 Console.WriteLine("Command not valid, Create requires a name.");
                 return;
             }
             var name = parts[1];
             var type = parts[2];
-            if (type == "standard")
+            bool exists = false;
+            bool isWeighted=true;
+            if (parts[3]=="true")
             {
-                StandardGradeBook gradeBook = new StandardGradeBook(name);
+                isWeighted = true;
+                exists = true;
+            }
+            else if (parts[3]=="false") 
+            {
+                isWeighted= false;
+                exists = true;
+            }
+            else
+            {
+                Console.WriteLine("Command not valid, Create requires a name, type of gradebook, if it's weighted (true / false).");
+             
+            }
+            
+            if (type == "standard" && exists)
+            {
+                StandardGradeBook gradeBook = new StandardGradeBook(name,isWeighted);
                 Console.WriteLine("Created gradebook {0}.", name);
             }
-            else if(type == "ranked")
+            else if(type == "ranked" && exists)
             {
-                RankedGradeBook gradeBook = new RankedGradeBook(name);
+                RankedGradeBook gradeBook = new RankedGradeBook(name,isWeighted);
                 Console.WriteLine("Created gradebook {0}.", name);
             }
             else
             {
-                Console.WriteLine(" is not a supported type of gradebook, please try again");
+//                Console.WriteLine(" is not a supported type of gradebook, please try again");
                 //GradeBookUserInterface.CommandLoop(gradeBook);
+                Console.WriteLine("Command not valid, Create requires a name, type of gradebook, if it's weighted (true / false).");
             }
             
             

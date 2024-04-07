@@ -12,4 +12,5 @@ namespace GradeBook.Enums
         OneToFour, 
         SixPoint
     }
+    //Testowy komentarz czy to się zapisuje poprawnie?
 }
